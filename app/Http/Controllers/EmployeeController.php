@@ -7,13 +7,18 @@ use App\Models\Employee;
 
 class EmployeeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
+    public function get()
+    {
+        $employees = Employee::with('salaries')->limit(1000)->get();
+        return response()->json($employees);
+    }
+
     public function index()
     {
-        $employees = Employee::limit(100)->get();
-        return response()->json($employees);
+        $employees = Employee::limit(1000)->get();
+
+        return view('employee.index', compact('employees'));
     }
 
     /**
